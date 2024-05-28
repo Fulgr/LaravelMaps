@@ -43,7 +43,7 @@
             x.on('click', function (e) {
                 @this.showRegion({{$region->id}});
             });
-            x.bindPopup("{{$region->name}}").openPopup();
+            x.bindPopup("{{$region->name}}");
         </script>
     @endforeach
 </div>
