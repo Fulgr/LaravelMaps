@@ -13,43 +13,6 @@ class Map extends Component
 
     public $regions;
 
-    public $editRegionModal;
-
-    public $regionName;
-
-    public $region;
-
-    public function updateRegion($id)
-    {
-        $region = $this->region;
-        ray($region);
-        $region->name = $this->regionName;
-        $region->save();
-        $this->showRegion($id);
-        $this->reload();
-    }
-
-    public function deleteRegion($id)
-    {
-        $region = Region::find($id);
-        $region->delete();
-        $this->reload();
-    }
-
-    public function showRegion($id)
-    {
-        if ($this->editRegionModal) {
-            $this->editRegionModal = false;
-            $this->region = null;
-            $this->regionName = null;
-
-            return;
-        }
-        $this->region = Region::with('locations')->find($id);
-        $this->regionName = $this->region->name;
-        $this->editRegionModal = true;
-    }
-
     public function updateSession($latlng, $zoom)
     {
         session()->put('loc', $latlng);

@@ -1,11 +1,4 @@
 <div>
-    @if($editRegionModal)
-        <div class="bg-white p-4">
-            <input type="text" wire:model="regionName" class="border border-gray-300 p-2 w-full" placeholder="Region Name">
-            <button wire:click="updateRegion({{$region->id}})">Update</button>
-            <button wire:click="deleteRegion({{$region->id}})">Delete</button>
-        </div>
-    @endif
     <div id="map" style="height:95vh;"></div>
     <button onclick="createRegion()">Submit</button>
     <script>
@@ -39,11 +32,11 @@
 
                     [{{$location->lat}}, {{$location->lng}}],
                 @endforeach
+                @foreach($region->locations->reverse() as $location)
+                    [{{$location->lat}}, {{$location->lng}}],
+                @endforeach
             ]).addTo(map);
-            x.on('click', function (e) {
-                @this.showRegion({{$region->id}});
-            });
-            x.bindPopup("{{$region->name}}");
+            x.bindPopup("{{$region->created_at->diffForHumans()}}");
         </script>
     @endforeach
 </div>
